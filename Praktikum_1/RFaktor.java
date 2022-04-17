@@ -1,6 +1,5 @@
-import java.util.InputMismatchException;
-import java.util.function.DoubleBinaryOperator;
-import java.util.function.IntConsumer;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.stream.DoubleStream;
 
 public class RFaktor {
     public static void main(String[] args) {
@@ -10,35 +9,21 @@ public class RFaktor {
         }
         ;
         try {
+            // infected und rfaktor als Zahlen überprüfen
             final var iterations = Integer.parseInt(args[2]);
-            DoubleBinaryOperator calculateInfected = (infected, rfactor) -> infected * rfactor;
-            IntConsumer c = (var t) -> {
-                var infected = 0d;
-                var rfactor = 0d;
-                try {
-                    // infected und rfaktor als Zahlen überprüfen
-                    infected = Double.parseDouble(args[0]);
-                    rfactor = Double.parseDouble(args[1]);
-                } catch (NumberFormatException e) {
-                    System.out.println("number of infected ist eine Zahl!\n rfactor ist eine Zahl!\n");
-                    System.exit(1);
-                }
-                System.out.println(String.format("Initial %s", infected));
-                // Infizierter Anzahl zu jedem Zeitpunkt t berechnen
-                for (var i = 1; i <= t; ++i) {
-                    infected = calculateInfected.applyAsDouble(infected, rfactor);
-                    System.out.println(String.format("Iteration %s: %s", i, infected));
-                    if (infected < 0.1) {
-                        System.out.println("Pandemic is over!");
-                        break;
-                    }
-                }
-            };
-            c.accept(iterations);
-        } catch (InputMismatchException e) {
-            System.out.println("Iterations ist eine Zahl!");
+            final var infected = Double.parseDouble(args[0]);
+            final var rfactor = Double.parseDouble(args[1]);
+            var counter = new AtomicInteger(1);
+            System.out.println(String.format("Initial %s", infected));
+            DoubleStream.iterate(infected, inf -> !(inf < 0.1),inf -> rfactor * inf).limit(iterations)
+                    .forEach(inf -> {
+                        System.out.println(String.format("Iteration %s: %s", counter.getAndIncrement(),inf));
+                        // if (inf < 0.1)
+                        //     System.out.println("Pandemic is over!");
+                    });
+        } catch (NumberFormatException e) {
+            System.out.println("Number of infected, rfactor und iterations sind Zahlen!\n");
             System.exit(1);
         }
-
     }
 }

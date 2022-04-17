@@ -1,33 +1,25 @@
+import java.util.Random;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.DoubleBinaryOperator;
 import java.util.function.DoublePredicate;
-import java.util.function.DoubleSupplier;
+import java.util.stream.Stream;
 
 public class PiNumerischeAnnäherung {
     public static void main(String[] args) {
-        final var difference = 1e-10; // 10^-5
+        final var diff = 1e-5; // 10^-5
+        var rand = new  Random();
         DoubleBinaryOperator calculatePoint = (double x, double y) -> Math.sqrt(x * x + y * y);
         DoublePredicate isInCircle = (length) -> length <= 1d;
-        double[] values = monteCarl(calculatePoint, isInCircle, Math::random, difference);
-        System.out.println(String.format("Iteration %s: %s", values[1], values[0]));
-    }
-
-    public static double[] monteCarl(DoubleBinaryOperator biOp, DoublePredicate p, DoubleSupplier s,
-            final double diff) {
-        var inSquare = 0d; // Anzahl der Punkte im Quadrat
-        var inCircle = 0d; // Anzahle der Punkter im Kreis
-        var approxPi = 0d; // angenährter Wert von PI
-        var i = 0; // Anzahl der Iterationen
-        do {// einen Punkt berechnen
-            double point = biOp.applyAsDouble(s.getAsDouble(), s.getAsDouble());
-            // liegt er innerhalb des Kreises
-            if (p.test(point))
-                ++inCircle;
-            ++inSquare;
-            if (inCircle != 0 && inSquare != 0)
-                approxPi = 4 * inCircle / inSquare;
-            ++i;
-        } while (Math.abs(approxPi - Math.PI) > diff || (inSquare == 0 || inCircle == 0));
-        double[] values = { approxPi, (double) i };
-        return values;
+        var counter = new AtomicInteger(0);
+        final var approx = Stream.iterate(new int[] { 1, 1 }, (n) -> {
+            double point = calculatePoint.applyAsDouble(rand.nextDouble(), rand.nextDouble());
+            counter.getAndIncrement();
+            return new int[] { ++n[0], (isInCircle.test(point)) ? ++n[1] : n[1] };
+        }).takeWhile(
+                n -> (Math.abs(4.0 * (double) n[1] / (double) n[0] - Math.PI) > diff))
+                .reduce((first, second) -> second) // reduce to only last stream element
+                .map(n -> (4.0 * (double) n[1] / (double) n[0]))
+                .get();
+        System.out.println(String.format("Iteration %s: %s", counter.get(), approx));
     }
 }

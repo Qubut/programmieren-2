@@ -1,29 +1,21 @@
 import java.util.Scanner;
-import java.util.stream.Stream;
+import java.util.stream.IntStream;
 
 public class Wordle {
     public static void main(String[] args) {
         final String lösungswort = "TASSE";
         var scanner = new Scanner(System.in);
         var input = "";
-        var versuche = 0;
-        while (versuche < 6) {
-
+        var versuche = 6;
+        while (versuche > 0) {
             System.out.println("Bitte geben Sie nur 5 Buchstaben ein");
             input = scanner.nextLine().toUpperCase();
-            var comparison = lösungswort.equalsIgnoreCase(input);
-            if (comparison) {
-                System.out.println(lösungswort);
-                System.out.println("You guessed right!");
-                System.exit(0);
+            if (input.length() == lösungswort.length()) {
+                var result = wordle(input, lösungswort);
+                System.out.println(result);
+                --versuche;
             } else {
-                if (input.length() == lösungswort.length()) {
-                    var result = wordle(input, lösungswort);
-                    System.out.println(result);
-                } else {
-                    System.out.println("Fehler: Bitte geben Sie nur 5 Buchstaben ein");
-                    --versuche;
-                }
+                System.out.println("Fehler: Bitte geben Sie nur 5 Buchstaben ein");
             }
         }
 
@@ -32,18 +24,18 @@ public class Wordle {
     }
 
     static String wordle(String vermutung, String lösung) {
-        StringBuffer result = new StringBuffer();
-        for (var i = 0; i < lösung.length(); ++i) {
-            if (lösung.charAt(i) == vermutung.charAt(i)) {
-                result.append(lösung.charAt(i));
-            } else if (!(lösung.indexOf(vermutung.charAt(i)) < 0)) {
-                result.append("?");
-            } else {
-                result.append("!");
-            }
-
+        var isEqual = lösung.equalsIgnoreCase(vermutung);
+        if (isEqual) {
+            System.out.println(lösung);
+            System.out.println("You guessed right!");
+            System.exit(0);
         }
-        return new String(result);
+        var sb = new StringBuilder();
+        IntStream.range(0, vermutung.length())
+                .map(i -> (lösung.charAt(i) == vermutung.charAt(i)) ? vermutung.charAt(i)
+                        : (!(lösung.indexOf(vermutung.charAt(i)) < 0) ? '?' : '!'))
+                .forEach(sb::appendCodePoint);
+        return sb.toString();
     }
 
 }
