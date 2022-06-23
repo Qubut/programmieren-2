@@ -1,5 +1,6 @@
 package wordle;
 
+import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -8,13 +9,13 @@ import java.util.Scanner;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
-import java.util.stream.Stream;
 
 public class Wordle {
-    public static void main(String[] args) {
-        final String pfad = "./resources/words.txt";
-        final var pattern = Pattern.compile("\t");
-        final var wörter = getWords(1000, pfad, pattern);
+    public static void main(String[] args) throws IOException {
+        final String pfad = "./src/main/resources/words.txt";
+        final var pattern = Pattern.compile("[\\t\\s]");
+        final var wörter = getWords(15, pfad, pattern);
+        System.out.println(wörter.size());
         //  beliebiges Wort
         final String lösungswort = wörter.get((int) Math.floor(Math.random() * wörter.size()));
         var scanner = new Scanner(System.in);
@@ -54,21 +55,23 @@ public class Wordle {
         try (var words = Files.lines(Path.of(path), StandardCharsets.UTF_8)) {
             return words.filter(line -> {
                 var entries = pattern.split(line);
-                var isANoun = entries[1] == "NoC";
-                var isFrequent = Integer.parseInt(entries[2]) >= minfreq;
+                var isANoun = entries[1].equals("NoC");
+                if (!isANoun) return false;
+                var isFrequent = Integer.parseInt(entries[2].strip()) >= minfreq;
+                if (!isFrequent) return false;
                 var word = entries[0];
                 var len = word.length();
-                var isValid = Stream.of(word)
-                        .filter(s -> Character.isLetter(s.charAt(0)))
-                        .collect(Collectors.toList())
-                        .size() == len;
-                var is5Letters = len == 5;
+                if(len!=5) return false;    
                 var lastLetter = word.charAt(len - 1);
-                return isValid && isANoun && lastLetter != 's' && is5Letters && isFrequent ? true : false;
+                if(lastLetter =='s') return false;
+                var isValid =  word.chars()
+                        .allMatch(s -> {return Character.isLetter((char)s);});
+            
+            if (!isValid) return false;
+                return true;
             }).map(line -> pattern.split(line)[0]).collect(Collectors.toList());
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-            return null;
+        } catch (IOException e) {
+            throw e;
         }
 
     }

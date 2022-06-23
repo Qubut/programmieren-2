@@ -26,9 +26,5 @@ dependencies {
 
 application {
     // Define the main class for the application.
-    mainClass = 'Sudoku.Sudoku'
-}
-run{
-    standardInput = System.in
-    standardOutput=System.out
+    mainClass = 'Praktikum_4.App'
 }
