@@ -1,7 +1,10 @@
 package Quartet;
 
 import java.util.*;
-
+/**
+@class CardDeck represents the cards encapsulation entity
+@param cards: list of cards  
+*/
 public class CardDeck implements Iterable<Card> {
     private final List<Card> cards;
 
@@ -12,7 +15,9 @@ public class CardDeck implements Iterable<Card> {
     public List<Card> getCards() {
         return cards;
     }
-
+    /**
+    @exception @param cardDeck = null @throws IllegalArgumentException
+    */
     public void addAllCards(CardDeck cardDeck) {
         if (cardDeck == null)
             throw new IllegalArgumentException("Cards cann't be null");
@@ -21,6 +26,9 @@ public class CardDeck implements Iterable<Card> {
 
     }
 
+    /**
+    @exception @param card == null or card in cards @throws IllegalArgumentException
+    */
     public void addCard(Card card) {
         if (card == null)
             throw new IllegalArgumentException("card cannot be null");
@@ -52,6 +60,10 @@ public class CardDeck implements Iterable<Card> {
         Collections.sort(this.cards, Comparator.comparingInt(Card::getAcceleration).thenComparing(Card::compareTo));
     }
 
+
+    /**
+    @exception cards.size() == 0  @throws NoSuchElementException
+    */
     public Card removeFirstCard() {
         if (size() == 0)
             throw new NoSuchElementException();
@@ -79,6 +91,9 @@ public class CardDeck implements Iterable<Card> {
             }
 
             @Override
+    /**
+    @throws NoSuchElementException {@link #removeFirstCard}
+    */
             public Card next() {
                 return that.removeFirstCard();
             }
@@ -89,7 +104,7 @@ public class CardDeck implements Iterable<Card> {
     public boolean equals(Object o) {
         if (this == o)
             return true;
-        if (!(o instanceof CardDeck))
+        if (!(o.getClass() == this.getClass()))
             return false;
         CardDeck cards1 = (CardDeck) o;
         return Objects.equals(getCards(), cards1.getCards());
