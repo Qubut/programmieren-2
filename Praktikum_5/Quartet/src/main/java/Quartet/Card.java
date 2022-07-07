@@ -1,7 +1,14 @@
 package Quartet;
 
 import java.util.Objects;
-
+/**
+@param name: card's name of a specific car
+@param cylinderCapacity: size of the engine
+@param cylinderCount: number of cylineders in the engine
+@param horsePower: engine's horsePower
+@param acceleration: engine's acc. abilitiy in seconds,
+to go from 0-100 km/h
+*/
 public class Card implements Comparable<Card> {
     private String name;
     private final int cylinderCapacity;
@@ -9,6 +16,10 @@ public class Card implements Comparable<Card> {
     private final int horsePower;
     private final int acceleration;
 
+    /**
+    @exception name empty or null or any other parameter <= 0
+    @throws IllegalArgumentException
+    */
     public Card(String name, int cylinderCapacity, int cylinderCount, int horsePower, int acceleration) {
         if (name==null||name.isEmpty() || cylinderCapacity <= 0 || cylinderCount <= 0 || horsePower <= 0
                 || acceleration <= 0)
@@ -20,7 +31,7 @@ public class Card implements Comparable<Card> {
         this.horsePower = horsePower;
         this.acceleration = acceleration;
     }
-
+    // getters
     public String getName() {
         return name;
     }
@@ -59,7 +70,10 @@ public class Card implements Comparable<Card> {
     public int hashCode() {
         return Objects.hash(getName(), getCylinderCapacity(), getCylinderCount(), getHorsePower(), getAcceleration());
     }
-
+    /**
+    compare based on acceleration -> horsePower ->
+    cylinder capacity -> cylinder count -> name of car's brand
+    */
     @Override
     public int compareTo(Card otherCard) {
         int result = Integer.compare(this.getAcceleration(), otherCard.getAcceleration());
