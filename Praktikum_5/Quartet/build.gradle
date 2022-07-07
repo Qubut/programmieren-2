@@ -1,0 +1,22 @@
+plugins {
+    id 'java'
+    id 'application'
+}
+
+application{
+    mainClass="Quartet.App"
+}
+run{
+    standardInput=System.in
+    standardOutput=System.out
+}
+group 'org.example'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testImplementation 'junit:junit:4.13'
+}
