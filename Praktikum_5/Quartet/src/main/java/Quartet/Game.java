@@ -37,22 +37,28 @@ public class Game {
 
     }
 
+    /**
+    @parma cardDeck: cards that had been distributed to players {@link #distributeCards}
+    */
     public void play() {
         distributeCards();
         CardDeck cardDeck = new CardDeck();
+        /**
+        infinite stream of Integer till {@link #isGameOver}
+        */
         IntStream.iterate(1, n -> n + 1).takeWhile(n -> !isGameOver()).forEach(n -> {
             displayRundeInfo(n);
             players.stream().forEach(p -> {
                 if (p.isHuman() && p.hasCards())
                     displayPlayerInfo(p, p.getCards().getCards().get(0));
-                // adding play card
+                // adding play card to the deck if it is not null
                 var playCard = p.playCard();
                 if (playCard != null)
                     cardDeck.addCard(playCard);
             });
             sortByStrategy(cardDeck);
             var winCard = cardDeck.getCards().get(0);
-            // player that won
+            // display the info of the player that won
             players.stream().filter(pl -> (pl.getCurrentCard() != null) ? pl.hasWon(winCard) : false).findFirst()
                     .ifPresent(winner -> {
                         winner.getCards().addAllCards(cardDeck);
@@ -61,7 +67,6 @@ public class Game {
 
         });
     }
-
     public Player getHumanPlayer() {
         return players.stream().filter(p -> p.isHuman()).findFirst().orElse(null);
     }
@@ -73,7 +78,10 @@ public class Game {
     public boolean isGameOver() {
         return players.stream().anyMatch(p -> p.getCards().size() == this.sizeOfDeck);
     }
-
+    /**
+        select a sorting strategy from human 
+        if human player exists and has cards , else through a random selection {@link #setCriteria}
+    */
     private void sortByStrategy(CardDeck cardDeck) {
         var criteria = (hasHumanPlayer() && getHumanPlayer().hasCards()) ? new Scanner(System.in).nextInt()
                 : setCriteria();
