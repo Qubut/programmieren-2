@@ -2,6 +2,12 @@ package Quartet;
 
 import java.util.Objects;
 
+/**
+@param name: player's name
+@param CardDeck: cards each player has at each round of the Game
+@param currentCard: the card deducted from cardDeck
+at each round {@link #playCard} 
+*/
 public class Player {
     private String name;
     private CardDeck cards;
@@ -13,7 +19,7 @@ public class Player {
             throw new IllegalArgumentException("name cann't be null");
         return true;
     }
-
+    // constructors
     public Player(String name, boolean human) {
         checkString(name);
         this.name = name;
@@ -24,7 +30,7 @@ public class Player {
     public Player(String name) {
         this(name, false);
     }
-
+    // getters
     public String getName() {
         return name;
     }
@@ -44,7 +50,10 @@ public class Player {
     public void setCurrentCardNull() {
         this.currentCard = null;
     }
-
+    /**
+    @return currentCard 
+    after removing it from cardDeck {@link #CardDeck::removeFirstCard}
+    */
     public Card playCard() {
         if (hasCards())
             this.currentCard = this.cards.removeFirstCard();
@@ -57,6 +66,11 @@ public class Player {
         return this.cards.size() > 0;
     }
 
+    /**
+    @return true if the currentCard the same card that won against the other players cards
+    through a sorting Strategy
+    {@link Game::play::sortByStrategy}
+    */
     public boolean hasWon(Card otherCard) {
         return this.currentCard.compareTo(otherCard)==0;
     };
