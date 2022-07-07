@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="Quartet.PlayerTest" tests="7" skipped="0" failures="0" errors="0" timestamp="2022-07-07T19:19:38" hostname="whitesphinx" time="0.002">
+<testsuite name="Quartet.PlayerTest" tests="7" skipped="0" failures="0" errors="0" timestamp="2022-07-07T23:39:26" hostname="whitesphinx" time="0.014">
   <properties/>
-  <testcase name="test_Equals" classname="Quartet.PlayerTest" time="0.0"/>
-  <testcase name="test_constructorInvalid" classname="Quartet.PlayerTest" time="0.001"/>
-  <testcase name="test_hasCards" classname="Quartet.PlayerTest" time="0.0"/>
-  <testcase name="test_hasWon" classname="Quartet.PlayerTest" time="0.0"/>
+  <testcase name="test_Equals" classname="Quartet.PlayerTest" time="0.003"/>
+  <testcase name="test_constructorInvalid" classname="Quartet.PlayerTest" time="0.003"/>
+  <testcase name="test_hasCards" classname="Quartet.PlayerTest" time="0.001"/>
+  <testcase name="test_hasWon" classname="Quartet.PlayerTest" time="0.002"/>
   <testcase name="test_playCard" classname="Quartet.PlayerTest" time="0.001"/>
-  <testcase name="test_setCurrentCardNull" classname="Quartet.PlayerTest" time="0.0"/>
-  <testcase name="test_constructorValid" classname="Quartet.PlayerTest" time="0.0"/>
+  <testcase name="test_setCurrentCardNull" classname="Quartet.PlayerTest" time="0.001"/>
+  <testcase name="test_constructorValid" classname="Quartet.PlayerTest" time="0.001"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

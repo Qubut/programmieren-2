@@ -46,7 +46,7 @@ public class Game {
         /**
         infinite stream of Integer till {@link #isGameOver}
         */
-        IntStream.iterate(1, n -> n + 1).takeWhile(n -> !isGameOver()).forEach(n -> {
+        IntStream.iterate(1,n->!isGameOver(), n -> n + 1).forEach(n -> {
             displayRundeInfo(n);
             players.stream().forEach(p -> {
                 if (p.isHuman() && p.hasCards())

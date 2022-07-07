@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="Quartet.CardDeckTest" tests="15" skipped="0" failures="0" errors="0" timestamp="2022-07-07T19:19:38" hostname="whitesphinx" time="0.016">
+<testsuite name="Quartet.CardDeckTest" tests="15" skipped="0" failures="0" errors="0" timestamp="2022-07-07T23:39:26" hostname="whitesphinx" time="0.063">
   <properties/>
-  <testcase name="test_sortByHorsePower" classname="Quartet.CardDeckTest" time="0.008"/>
+  <testcase name="test_sortByHorsePower" classname="Quartet.CardDeckTest" time="0.027"/>
   <testcase name="test_addCardValid" classname="Quartet.CardDeckTest" time="0.001"/>
   <testcase name="test_size" classname="Quartet.CardDeckTest" time="0.0"/>
-  <testcase name="test_addAllCardsValid" classname="Quartet.CardDeckTest" time="0.0"/>
-  <testcase name="test_shuffleCards" classname="Quartet.CardDeckTest" time="0.001"/>
-  <testcase name="test_equals" classname="Quartet.CardDeckTest" time="0.001"/>
-  <testcase name="test_iterator" classname="Quartet.CardDeckTest" time="0.001"/>
-  <testcase name="test_sortByAcceleration" classname="Quartet.CardDeckTest" time="0.001"/>
-  <testcase name="test_addAllCardsInvalid" classname="Quartet.CardDeckTest" time="0.0"/>
+  <testcase name="test_addAllCardsValid" classname="Quartet.CardDeckTest" time="0.001"/>
+  <testcase name="test_shuffleCards" classname="Quartet.CardDeckTest" time="0.003"/>
+  <testcase name="test_equals" classname="Quartet.CardDeckTest" time="0.002"/>
+  <testcase name="test_iterator" classname="Quartet.CardDeckTest" time="0.004"/>
+  <testcase name="test_sortByAcceleration" classname="Quartet.CardDeckTest" time="0.003"/>
+  <testcase name="test_addAllCardsInvalid" classname="Quartet.CardDeckTest" time="0.002"/>
   <testcase name="test_isEmpty" classname="Quartet.CardDeckTest" time="0.001"/>
   <testcase name="test_removeFirstCard" classname="Quartet.CardDeckTest" time="0.0"/>
-  <testcase name="test_sortByCylinderCount" classname="Quartet.CardDeckTest" time="0.0"/>
-  <testcase name="test_addCardInvalid" classname="Quartet.CardDeckTest" time="0.001"/>
-  <testcase name="test_sortByCylinderCapacity" classname="Quartet.CardDeckTest" time="0.001"/>
-  <testcase name="test_constructorValid" classname="Quartet.CardDeckTest" time="0.0"/>
+  <testcase name="test_sortByCylinderCount" classname="Quartet.CardDeckTest" time="0.003"/>
+  <testcase name="test_addCardInvalid" classname="Quartet.CardDeckTest" time="0.004"/>
+  <testcase name="test_sortByCylinderCapacity" classname="Quartet.CardDeckTest" time="0.003"/>
+  <testcase name="test_constructorValid" classname="Quartet.CardDeckTest" time="0.001"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>
