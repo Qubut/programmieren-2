@@ -3,8 +3,8 @@ import java.util.stream.DoubleStream;
 
 /**
 Eine kleine Simulation der Ausbreitung oder Verschwindung von einem Virus 
-unter des Effekts eins @param rfaktor
-@param infected Anzahl der Infezierten
+unter des Effekts eines @param rfaktor
+@param infected Anzahl der Infizierten
 @param iterations Anzahl der Iterationen
 @param counter hält die Iterationenanzahl nach
 */

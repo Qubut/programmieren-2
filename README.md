@@ -1,6 +1,6 @@
 # Programmieren 2
 
-Dieses Repositry hat alle Aufgaben des praktischen Teils des Programmieren-Kurses an der HAW-Landshut, Sommer 2022.
+Dieses Repository hat alle Aufgaben des praktischen Teils des Programmieren-Kurses an der HAW-Landshut, Sommer 2022.
 Eine Beschreibung der einzelen Aufgaben befindet sich in SupportMaterial.
 jede Praktikumsaufgabe ist ein Gradle Projekt außer Praktikum_1/
 
