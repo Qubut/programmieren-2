@@ -49,6 +49,8 @@ public class Game {
         IntStream.iterate(1,n->!isGameOver(), n -> n + 1).forEach(n -> {
             displayRundeInfo(n);
             players.stream().forEach(p -> {
+                // remove previous currentCard
+                p.setCurrentCardNull();
                 if (p.isHuman() && p.hasCards())
                     displayPlayerInfo(p, p.getCards().getCards().get(0));
                 // adding play card to the deck if it is not null
