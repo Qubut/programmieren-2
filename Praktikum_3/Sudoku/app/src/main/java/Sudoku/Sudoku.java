@@ -94,28 +94,29 @@ public class Sudoku {
         if (Arrays.stream(sudoku).anyMatch(zeile -> zeile == null || zeile.length != 9))
             throw new IllegalArgumentException("a row cannot be null and it's length must be " + 9);
         if (Arrays.stream(sudoku).anyMatch(zeile -> Arrays.stream(zeile).anyMatch(num -> num < 0 || num > 9)))
-            throw new IllegalArgumentException("entries cannot negative or more than " + 9);
+            throw new IllegalArgumentException("entries cannot be negative or more than " + 9);
         return true;
 
     }
 
     public static boolean isValidEntry(int[][] sudoku, int row, int column, int entry) {
-        if (checkValidSudokuMatrix(sudoku)) {
-            if (row < 0 || column < 0 || row > 9 - 1 || column > 9 - 1)
-                throw new IllegalArgumentException("a row or a column cannot be negativ or more than" + (9 - 1));
-            if (entry < 0 && entry > 9)
-                throw new IllegalArgumentException("entry cannot be negative or more than 9");
-            return !IntStream.rangeClosed(0, 8).anyMatch(n -> sudoku[row][n] == entry && n != column) &&
-                    !IntStream.rangeClosed(0, 8).anyMatch(n -> sudoku[n][column] == entry && n != row) &&
-                    !IntStream.iterate(45, n -> n > 360, n -> n + 45 * 2).anyMatch(n -> {
-                        var i = row + (int) Math.tan(n);
-                        var j = column + (int) Math.tan(n);
-                        if (!(i < 0 && i > 8) && !(j < 0 && j > 8))
-                            return sudoku[i][j] == entry;
-                        return false;
-                    });
-        }
-        return false;
+        if (row < 0 || column < 0 || row > 8 || column > 8)
+            throw new IllegalArgumentException("a row or a column cannot be negativ or more than" + (8));
+        if (entry < 0 || entry > 9)
+            throw new IllegalArgumentException("entry cannot be negative or more than 9");
+        if (IntStream.rangeClosed(0, 8).anyMatch(n -> sudoku[row][n] == entry && n != column))
+            return false;
+        if (IntStream.rangeClosed(0, 8).anyMatch(n -> sudoku[n][column] == entry && n != row))
+            return false;
+        if (IntStream.iterate(45, n -> n > 360, n -> n + 45 * 2).anyMatch(n -> {
+            var i = row + (int) Math.tan(n);
+            var j = column + (int) Math.tan(n);
+            if (!(i < 0 || i > 8) && !(j < 0 || j > 8))
+                return sudoku[i][j] == entry;
+            return false;
+        }))
+            return false;
+        return true;
     }
 
     public static boolean isSolution(int[][] solution) {
@@ -125,7 +126,7 @@ public class Sudoku {
                 .allMatch(i ->
                         IntStream.rangeClosed(0, 8).allMatch(j -> solution[i][j] != 0 &&
                                 (
-                                        (sudoku[i][j] != 0 && sudoku[i][j] == solution[i][j]) ||
+                                        (sudoku[i][j] == solution[i][j]) ||
                                                 (sudoku[i][j] == 0 && isValidEntry(sudoku, i, j, solution[i][j]))
                                 )
                         )
