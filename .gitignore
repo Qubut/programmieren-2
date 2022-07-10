@@ -3,3 +3,7 @@
 **/.gradle
 **/build
 **/.vscode
+**/.vim
+Praktikum_5/Quartet/**/.gradle
+Praktikum_5/Quartet/**/build
+Praktikum_5/Quartet/**/.idea
