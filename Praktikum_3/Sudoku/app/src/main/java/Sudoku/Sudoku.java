@@ -118,7 +118,7 @@ public class Sudoku {
   }
 
   /**
-   * @return true wenn der Eintrag (entry) valied ist
+   * @return true wenn der Eintrag (entry) valid ist
    * @param getSeed          {@link IntUnaryOperator}
    *                         der die Unteranfangszeile oder Unteranfangsspalte
    *                         zurückgibt
