@@ -9,6 +9,11 @@ import java.util.stream.IntStream;
 public class Sudoku {
   final static int GRID_SIZE = 9;
 
+  /**
+   * @param sudoku      {@link Sudoku.Sudoku.getExample}
+   * @param scanner     : get Entries for solving Sudoku
+   * @param emptyFields : A Stack that has the coordinates of each empty field
+   */
   public static void main(String[] args) {
     var sudoku = getExample();
     var scanner = new Scanner(System.in);
@@ -40,6 +45,10 @@ public class Sudoku {
 
   }
 
+  /**
+   * @return A filled Array int[9][9] that represents the Sudoku
+   * 
+   */
   public static int[][] getExample() {
     return new int[][] {
         { 5, 3, 0, 0, 7, 0, 0, 0, 0 },
@@ -89,6 +98,12 @@ public class Sudoku {
 
   }
 
+  /**
+   * @exception sudoku==null || sudoku.length !=9 || jede Zeile.length!=9
+   *                         || jeder Wert von jeder Zeile < 0 oder > 9
+   * @throws IllegalArgumentException
+   * 
+   */
   public static boolean checkValidSudokuMatrix(int[][] sudoku) {
     if (sudoku == null)
       throw new IllegalArgumentException("sudoku can not be null");
@@ -102,6 +117,17 @@ public class Sudoku {
 
   }
 
+  /**
+   * @return true wenn der Eintrag (entry) valied ist
+   * @param getSeed          {@link IntUnaryOperator}
+   *                         der die Unteranfangszeile oder Unteranfangsspalte
+   *                         zurückgibt
+   * @param initialSubRow    die Unteranfangszeile von {@link getSeed}
+   * @param initialSubColumn die Unteranfangsspalte von {@link getSeed}
+   * @exception wenn    row oder column < 0 oder > 8
+   * @exception entry<0 or >9
+   * @throws IllegalArgumentException
+   */
   public static boolean isValidEntry(int[][] sudoku, int row, int column, int entry) {
     IntUnaryOperator getSeed = (n) -> n >= 3 ? n - n % 3 : 0;
     var initialSubRow = getSeed.applyAsInt(row);
@@ -122,6 +148,15 @@ public class Sudoku {
     return true;
   }
 
+  /**
+   * iteriert über jede Zeile und deren Spalten
+   * und überprüft ob jede nicht leere Zelle in sudoku genauso wie bei solution
+   * ist
+   * und ob jeder andere Eintrag von der Lösung valid ist
+   * 
+   * @return true wenn die Lösung (solution) valid ist
+   * @param sudoku von {@link getExample}
+   */
   public static boolean isSolution(int[][] solution) {
     checkValidSudokuMatrix(solution);
     var sudoku = getExample();
